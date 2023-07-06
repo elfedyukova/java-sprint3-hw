@@ -1,5 +1,4 @@
 package org.example.task;
-
 public class Task {
 
     protected String name;
@@ -7,10 +6,10 @@ public class Task {
     protected String status;
     protected int id;
 
-    public Task(String name, String description, String status) {
+    public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        this.status = status;
+        this.status = "NEW";
 
     }
 
@@ -44,15 +43,12 @@ public class Task {
     public void setStatus(String status) {
         this.status = status;
     }
-
     public int getId() {
         return this.id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     @Override
     public String toString() {
         return "{" + "name = '" + name + '\'' +
@@ -60,6 +56,5 @@ public class Task {
                 ", id='" + id + '\'' +
                 ", status='" + status + '\'' +
                 "}";
-
     }
 }
