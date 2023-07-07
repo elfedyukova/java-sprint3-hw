@@ -1,4 +1,5 @@
 package org.example.task;
+
 public class Task {
 
     protected String name;
@@ -49,7 +50,6 @@ public class Task {
     public void setId(int id) {
         this.id = id;
     }
-
     @Override
     public String toString() {
         return "{" + "name = '" + name + '\'' +
