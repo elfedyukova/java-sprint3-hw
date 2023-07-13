@@ -1,2 +1,16 @@
-package org.example.managers;public class Managers {
+package org.example.managers;
+
+public final class Managers {
+
+    private Managers() {
+    }
+
+    public static TaskManager getDefault() {
+        return new InMemoryTaskManager();
+    }
+
+    public static HistoryManager getHistoryDefault() {
+        return new InMemoryHistoryManager();
+    }
+
 }

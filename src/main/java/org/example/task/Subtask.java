@@ -1,17 +1,19 @@
 package org.example.task;
 
+import java.util.Objects;
+
 public class Subtask extends Task {
 
     private int epicId;
 
-    public Subtask(String name, String description) {
+    public Subtask(String name, String description, int epicId) {
         super(name, description);
         this.epicId = epicId;
     }
 
-    public Subtask(String name, String description, String status) {
+    public Subtask(String name, String description, String status, int epicId) {
         super(name, description);
-        this.status = status;
+        //this.status = status;
         this.epicId = epicId;
     }
 
@@ -40,4 +42,22 @@ public class Subtask extends Task {
                 ", status='" + status + '\'' +
                 "}";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // проверяем адреса объектов
+        if (obj == null) return false; // проверяем ссылку на null
+        if (this.getClass() != obj.getClass()) return false; // сравниваем классы объектов
+        Task otherTask = (Task) obj; // открываем доступ к полям другого объекта
+        return Objects.equals(name, otherTask.name) && // проверяем все поля
+                Objects.equals(description, otherTask.description) &&
+                Objects.equals(status, otherTask.status);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description);
+    }
+
 }

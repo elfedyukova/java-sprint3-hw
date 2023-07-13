@@ -1,2 +1,7 @@
-package org.example.task;public enum TaskStatus {
+package org.example.task;
+
+public enum TaskStatus {
+    NEW,
+    IN_PROGRESS,
+    DONE
 }
