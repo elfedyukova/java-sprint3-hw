@@ -95,7 +95,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteEpicById(int epicId) {
-        //удаляем эпик и сабтаски тоже надо удалить
         ArrayList<Subtask> subtasks = epics.get(epicId).getSubtasks();
         epics.remove(epicId);
         subtasks.clear();
@@ -177,7 +176,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteSubtasks() {
-        subtasks.clear();  //Если мы все subtasks удаляем эпики могут у нас быть? все эпики, судя по ТЗ должны быть со статусом NEW
+        subtasks.clear();  //Если мы все subtasks удаляем - все эпики, судя по ТЗ должны быть со статусом NEW
         for (Epic epic : epics.values()) {
             updateEpicStatus(epic);
         }

@@ -61,7 +61,7 @@ public class Main {
         }
         int subtaskId = 7;
         System.out.println(taskManager.getSubtaskById(subtaskId));
-        taskManager.updateSubtask(new Subtask("new name", "new description", "IN_PROGRESS", 6), subtaskId);
+        taskManager.updateSubtask(new Subtask("new name", "new description", TaskStatus.IN_PROGRESS, 4), subtaskId);
         System.out.println(taskManager.getSubtaskById(subtaskId));
         taskManager.deleteSubtaskById(subtaskId);
         System.out.println("Список сабтасков после удаления одного по ID: " + +taskManager.getSubtasks().size());
