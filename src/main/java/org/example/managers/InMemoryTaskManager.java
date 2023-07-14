@@ -19,10 +19,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     private final HistoryManager historyManager = Managers.getHistoryDefault();
 
-    private Integer generateId() {
-        return id++;
-    }
-
     @Override
     public Task createTask(Task task) {
         Integer id = generateId();
@@ -32,7 +28,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return new ArrayList<>(tasks.values());
     }
 
@@ -72,7 +68,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Epic> getEpics() {
+    public List<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
 
@@ -107,35 +103,9 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Subtask> getSubtasksFromEpicById(int epicId) {
+    public List<Subtask> getSubtasksFromEpicById(int epicId) {
         Epic epic = epics.get(epicId);
         return epic.getSubtasks();
-    }
-
-    @Override
-    public void updateEpicStatus(Epic epic) {
-        ArrayList<Subtask> subtasks = epic.getSubtasks();
-        if (subtasks.isEmpty()) {
-            epic.setStatus(TaskStatus.NEW);
-        }
-        boolean isAllNew = true;
-        boolean isAllDone = true;
-
-        for (Subtask subtask : subtasks) {
-            if (!"NEW".equals(subtask.getStatus())) {
-                isAllNew = false;
-            }
-            if (!"Done".equals(subtask.getStatus())) {
-                isAllDone = false;
-            }
-        }
-        if (isAllNew) {
-            epic.setStatus(TaskStatus.NEW);
-        } else if (isAllDone) {
-            epic.setStatus(TaskStatus.DONE);
-        } else {
-            epic.setStatus(TaskStatus.IN_PROGRESS);
-        }
     }
 
     @Override
@@ -193,5 +163,34 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
+    }
+
+    private Integer generateId() {
+        return id++;
+    }
+
+    private void updateEpicStatus(Epic epic) {
+        List<Subtask> subtasks = epic.getSubtasks();
+        if (subtasks.isEmpty()) {
+            epic.setStatus(TaskStatus.NEW);
+        }
+        boolean isAllNew = true;
+        boolean isAllDone = true;
+
+        for (Subtask subtask : subtasks) {
+            if (!"NEW".equals(subtask.getStatus())) {
+                isAllNew = false;
+            }
+            if (!"Done".equals(subtask.getStatus())) {
+                isAllDone = false;
+            }
+        }
+        if (isAllNew) {
+            epic.setStatus(TaskStatus.NEW);
+        } else if (isAllDone) {
+            epic.setStatus(TaskStatus.DONE);
+        } else {
+            epic.setStatus(TaskStatus.IN_PROGRESS);
+        }
     }
 }

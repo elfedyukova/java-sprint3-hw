@@ -7,7 +7,6 @@ import org.example.task.Subtask;
 import org.example.task.Task;
 import org.example.task.TaskStatus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -32,7 +31,7 @@ public class Main {
 
         taskManager.createSubtask(new Subtask("subtask", "Второй subtask", 6));
 
-        ArrayList<Task> task = taskManager.getTasks();
+        List<Task> task = taskManager.getTasks();
 
         System.out.println("Количество текущих задач: " + task.size());
         for (int i = 0; i < task.size(); i++) {
@@ -50,7 +49,7 @@ public class Main {
         System.out.println("Список задач после удаления всех задач: " + taskManager.getTasks().size());
 
 
-        ArrayList<Subtask> subtasks = taskManager.getSubtasks();
+        List<Subtask> subtasks = taskManager.getSubtasks();
         System.out.println("\nКоличество текущих сабтасков: " + subtasks.size());
         for (int i = 0; i < subtasks.size(); i++) {
             System.out.println("Тип: " + subtasks.get(i).getName()
@@ -70,7 +69,7 @@ public class Main {
         System.out.println("Список сабтасков после удаления всех: " + taskManager.getSubtasks().size());
 
 
-        ArrayList<Epic> epic = taskManager.getEpics();
+        List<Epic> epic = taskManager.getEpics();
         System.out.println("\nКоличество текущих эпиков: " + epic.size());
         for (int i = 0; i < epic.size(); i++) {
             System.out.println("Тип: " + epic.get(i).getName()
