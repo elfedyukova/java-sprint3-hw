@@ -4,6 +4,7 @@ import org.example.task.Epic;
 import org.example.task.Subtask;
 import org.example.task.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
@@ -45,7 +46,7 @@ public interface TaskManager {
 
     void deleteSubtaskById(int subtaskId);
 
-    List<Task> getHistory();
+    ArrayList<Task> getHistory();
 
 }
 
