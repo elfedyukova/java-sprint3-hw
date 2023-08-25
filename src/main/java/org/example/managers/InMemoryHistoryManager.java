@@ -1,54 +1,43 @@
 package org.example.managers;
 
 import org.example.task.Task;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    //private final LinkedList<Task> history = new LinkedList<>();
     CustomLinkedList<Task> historyTasks = new CustomLinkedList<>();
-
+    Map<Integer, Node> map = new HashMap<>();
     Node first;
     Node last;
 
-    Map<Integer, Node> map = new HashMap<>();
-
     @Override
     public List<Task> getHistory() {
-        List<Task> result = new ArrayList<>();
-        if (first == null) {
-            return  result;
-        }
-        Node current = first;
-
-        while (current != null){
-            //result.add(current.getValue());
-            current = current.next;
-        }
-        return result;
+        return historyTasks.getTasks();
     }
 
     @Override
-    public void remove(int id){
-         // для удаления задачи из просмотра
-        // Добавьте его вызов при удалении задач, чтобы они также удалялись из истории просмотров.
-        //Node<Task> node;
-        //historyTasks.removeNode(node);
+    public void remove(int id) {
+        Node<Task> node = null;
+        historyTasks.removeNode(node);
     }
 
     @Override
     public void addTask(Task task) {
-
-
+        if (task == null) {
+            return;
+        }
+        historyTasks.linkLast(task);
     }
 
     private static class CustomLinkedList<T> {
-
         private Node<T> head;
         private Node<T> tail;
 
-        //getTasks собирать все задачи из него в обычный ArrayList.
-        public List<Task> getTasks () {
+        public List<Task> getTasks() {
             List<Task> history = new ArrayList<>();
             Node<T> node = head;
             while (node != null) {
@@ -58,9 +47,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             return history;
         }
 
-        //будет добавлять задачу в конец этого списка
         public void linkLast(T task) {
-
             final Node<T> prev = tail;
             final Node<T> node = new Node<>(prev, task, null);
             tail = node;
@@ -68,19 +55,19 @@ public class InMemoryHistoryManager implements HistoryManager {
             if (prev != null) {
                 prev.next = node;
 
-            }else{
+            } else {
                 head = node;
             }
 
         }
-        // качестве параметра этот метод должен принимать объект  Node — узел связного списка и вырезать его
+
         public void removeNode(Node<T> node) {
             if (node == null) {
                 return;
             }
             if (node.prev != null) {
                 node.prev.next = node.next;
-                if (node.next == null) { // node == next
+                if (node.next == null) {
                     tail = node.prev;
                 } else {
                     node.next.prev = node.prev;

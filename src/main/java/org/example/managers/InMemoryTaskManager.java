@@ -56,6 +56,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteTaskById(int id) {
+        historyManager.remove(id);
         tasks.remove(id);
     }
 
@@ -109,7 +110,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Subtask createSubtask(Subtask subtask) { //(Subtask subtask, int epicsId)
+    public Subtask createSubtask(Subtask subtask) {
         if (!epics.containsKey(subtask.getEpicId())) {
             return null;
         }
@@ -146,7 +147,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteSubtasks() {
-        subtasks.clear();  //Если мы все subtasks удаляем - все эпики, судя по ТЗ должны быть со статусом NEW
+        subtasks.clear();
         for (Epic epic : epics.values()) {
             updateEpicStatus(epic);
         }
@@ -154,10 +155,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteSubtaskById(int subtaskId) {
-        subtasks.remove(subtaskId); //Если удаляем subtusk нужно ее удалить из эпика и обновить статус.
-        epics.remove(epics.get(subtaskId));//нужно передать тот эпик, в который входит эта подзадача
-        //epics.get(subtask.getEpicId()).getSubtasks().add(subtask);
-        //updateEpicStatus(epics.get(subtaskId));//обновляем статус
+        Subtask subtask = subtasks.get(subtaskId);
+        subtasks.remove(subtaskId);
+        epics.remove(epics.get(subtaskId));
+        updateEpicStatus(epics.get(subtask.getEpicId()));
     }
 
     @Override
@@ -181,7 +182,7 @@ public class InMemoryTaskManager implements TaskManager {
             if (!"NEW".equals(subtask.getStatus())) {
                 isAllNew = false;
             }
-            if (!"Done".equals(subtask.getStatus())) {
+            if (!"DONE".equals(subtask.getStatus())) {
                 isAllDone = false;
             }
         }

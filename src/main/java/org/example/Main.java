@@ -32,7 +32,6 @@ public class Main {
         taskManager.createSubtask(new Subtask("subtask", "Второй subtask", 6));
 
         List<Task> task = taskManager.getTasks();
-
         System.out.println("Количество текущих задач: " + task.size());
         for (int i = 0; i < task.size(); i++) {
             System.out.println("Тип: " + task.get(i).getName()
@@ -40,14 +39,12 @@ public class Main {
                     + ". Статус: " + task.get(i).getStatus()
                     + ". ID: " + task.get(i).getId());
         }
-        System.out.println(taskManager.getTaskById(id));
         taskManager.updateTask(new Task("New task", "New Description", TaskStatus.IN_PROGRESS, id));
         System.out.println(taskManager.getTaskById(id));
         taskManager.deleteTaskById(id);
         System.out.println("Количество задач после удаления одной задачи по ID: " + taskManager.getTasks().size());
         taskManager.deleteTasks();
         System.out.println("Список задач после удаления всех задач: " + taskManager.getTasks().size());
-
 
         List<Subtask> subtasks = taskManager.getSubtasks();
         System.out.println("\nКоличество текущих сабтасков: " + subtasks.size());
@@ -59,15 +56,12 @@ public class Main {
                     + ". Epic ID: " + subtasks.get(i).getEpicId());
         }
         int subtaskId = 7;
-        System.out.println(taskManager.getSubtaskById(subtaskId));
         taskManager.updateSubtask(new Subtask("new name", "new description", TaskStatus.IN_PROGRESS, 4), subtaskId);
         System.out.println(taskManager.getSubtaskById(subtaskId));
         taskManager.deleteSubtaskById(subtaskId);
         System.out.println("Список сабтасков после удаления одного по ID: " + +taskManager.getSubtasks().size());
-
         taskManager.deleteSubtasks();
         System.out.println("Список сабтасков после удаления всех: " + taskManager.getSubtasks().size());
-
 
         List<Epic> epic = taskManager.getEpics();
         System.out.println("\nКоличество текущих эпиков: " + epic.size());
