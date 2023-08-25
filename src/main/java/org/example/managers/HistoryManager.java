@@ -8,8 +8,6 @@ public interface HistoryManager {
     List<Task> getHistory();
 
     void addTask(Task tsk);
-
-    //удаление задачи из просмотра.
     void remove(int id);
 
 }
