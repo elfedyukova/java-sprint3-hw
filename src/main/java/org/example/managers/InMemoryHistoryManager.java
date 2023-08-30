@@ -10,9 +10,6 @@ import java.util.Map;
 public class InMemoryHistoryManager implements HistoryManager {
 
     CustomLinkedList<Task> historyTasks = new CustomLinkedList<>();
-    Map<Integer, Node> map = new HashMap<>();
-    Node first;
-    Node last;
 
     @Override
     public List<Task> getHistory() {
@@ -20,20 +17,28 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(int id) { //Здесь ты принимаешь id и нигде его не используешь.
         Node<Task> node = null;
         historyTasks.removeNode(node);
     }
 
     @Override
+    // Логика этого метода должна быть такая.
+    //Получить задачу. Удалить задачу из map.
+    //вызвать метод linkLast.
+    //Положить Last в map.
     public void addTask(Task task) {
         if (task == null) {
             return;
         }
+        historyTasks.historyMap.remove(task);
         historyTasks.linkLast(task);
+        historyTasks.historyMap.put(task.getId(), historyTasks.tail);
     }
 
-    private static class CustomLinkedList<T> {
+    private static class CustomLinkedList<T> { //Тут метод add еще должен быть как минимум.
+
+        Map<Integer, Node> historyMap = new HashMap<>(); //Это HashMap должна использоваться в методе add при добавлении элемента.
         private Node<T> head;
         private Node<T> tail;
 
@@ -58,10 +63,9 @@ public class InMemoryHistoryManager implements HistoryManager {
             } else {
                 head = node;
             }
-
         }
 
-        public void removeNode(Node<T> node) {
+        public void removeNode(Node<T> node) { // Этот метод внутренний. Ты должна сначала получить node из map а потом уже ее передать в этот метод для удаления.
             if (node == null) {
                 return;
             }
