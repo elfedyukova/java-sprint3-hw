@@ -44,7 +44,7 @@ public class Main {
         taskManager.deleteTaskById(id);
         System.out.println("Количество задач после удаления одной задачи по ID: " + taskManager.getTasks().size());
         taskManager.deleteTasks();
-        System.out.println("Список задач после удаления всех задач: " + taskManager.getTasks().size());
+        System.out.println("Список задач после удаления всех задач: " + taskManager.getTasks().size()); //0
 
         List<Subtask> subtasks = taskManager.getSubtasks();
         System.out.println("\nКоличество текущих сабтасков: " + subtasks.size());

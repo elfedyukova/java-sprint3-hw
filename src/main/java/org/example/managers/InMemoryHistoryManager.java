@@ -10,6 +10,7 @@ import java.util.Map;
 public class InMemoryHistoryManager implements HistoryManager {
 
     CustomLinkedList<Task> historyTasks = new CustomLinkedList<>();
+    Map<Integer, Node> historyMap = new HashMap<>();
 
     @Override
     public List<Task> getHistory() {
@@ -17,28 +18,30 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public void remove(int id) { //Здесь ты принимаешь id и нигде его не используешь.
-        Node<Task> node = null;
-        historyTasks.removeNode(node);
+    public void remove(int id) {
+        if (!historyMap.containsKey(id)) {
+            return;
+        }
+        Node remove = historyMap.get(id);
+        historyTasks.removeNode(remove);
+        historyMap.remove(id);
     }
 
     @Override
-    // Логика этого метода должна быть такая.
-    //Получить задачу. Удалить задачу из map.
-    //вызвать метод linkLast.
-    //Положить Last в map.
-    public void addTask(Task task) {
+    public void add(Task task) {
         if (task == null) {
             return;
         }
-        historyTasks.historyMap.remove(task);
+        if (historyMap.containsKey(task.getId())) {
+            Node remove = historyMap.get(task.getId());
+            historyTasks.removeNode(remove);
+        }
         historyTasks.linkLast(task);
-        historyTasks.historyMap.put(task.getId(), historyTasks.tail);
+        historyMap.put(task.getId(), historyTasks.tail);
     }
 
-    private static class CustomLinkedList<T> { //Тут метод add еще должен быть как минимум.
+    private static class CustomLinkedList<T> {
 
-        Map<Integer, Node> historyMap = new HashMap<>(); //Это HashMap должна использоваться в методе add при добавлении элемента.
         private Node<T> head;
         private Node<T> tail;
 
@@ -65,7 +68,8 @@ public class InMemoryHistoryManager implements HistoryManager {
             }
         }
 
-        public void removeNode(Node<T> node) { // Этот метод внутренний. Ты должна сначала получить node из map а потом уже ее передать в этот метод для удаления.
+        public void removeNode(Node<T> node) {
+
             if (node == null) {
                 return;
             }
