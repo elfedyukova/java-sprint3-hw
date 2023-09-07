@@ -13,8 +13,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int id = 2;
         TaskManager taskManager = Managers.getDefault();
+
+        int id = 2;
 
         for (int i = 0; i < 3; i++) {
             taskManager.createTask(new Task("task", "Создание задачи"));
@@ -56,7 +57,7 @@ public class Main {
                     + ". Epic ID: " + subtasks.get(i).getEpicId());
         }
         int subtaskId = 7;
-        taskManager.updateSubtask(new Subtask("new name", "new description", TaskStatus.IN_PROGRESS, 4), subtaskId);
+        taskManager.updateSubtask(new Subtask("new name", "new description", TaskStatus.IN_PROGRESS, 4));
         System.out.println(taskManager.getSubtaskById(subtaskId));
         taskManager.deleteSubtaskById(subtaskId);
         System.out.println("Список сабтасков после удаления одного по ID: " + +taskManager.getSubtasks().size());

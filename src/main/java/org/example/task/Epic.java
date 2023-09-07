@@ -1,10 +1,11 @@
 package org.example.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Epic extends Task {
 
-    private ArrayList<Subtask> subtasks;
+    private List<Subtask> subtasks;//
 
     public Epic(String name, String description) {
         super(name, description);
@@ -21,6 +22,10 @@ public class Epic extends Task {
         return this.id;
     }
 
+    public void removeSubtasks(int id) {
+        subtasks.remove(Integer.valueOf(id));
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -35,11 +40,11 @@ public class Epic extends Task {
                 "}";
     }
 
-    public ArrayList<Subtask> getSubtasks() {
+    public List<Subtask> getSubtasks() {
         return subtasks;
     }
 
-    public void setSubtasks(ArrayList<Subtask> subtasks) {
+    public void setSubtasks(List<Subtask> subtasks) {
         this.subtasks = subtasks;
     }
 

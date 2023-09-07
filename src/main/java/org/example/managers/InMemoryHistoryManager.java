@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    CustomLinkedList<Task> historyTasks = new CustomLinkedList<>();
-    Map<Integer, Node> historyMap = new HashMap<>();
+    private CustomLinkedList<Task> historyTasks = new CustomLinkedList<>();
+    private Map<Integer, Node<Task>> historyMap = new HashMap<>();
 
     @Override
     public List<Task> getHistory() {
@@ -45,11 +45,11 @@ public class InMemoryHistoryManager implements HistoryManager {
         private Node<T> head;
         private Node<T> tail;
 
-        public List<Task> getTasks() {
-            List<Task> history = new ArrayList<>();
+        public List<T> getTasks() {
+            List<T> history = new ArrayList<>();
             Node<T> node = head;
             while (node != null) {
-                history.add((Task) node.task);
+                history.add(node.task);
                 node = node.next;
             }
             return history;
@@ -70,18 +70,21 @@ public class InMemoryHistoryManager implements HistoryManager {
 
         public void removeNode(Node<T> node) {
 
+            final Node<T> prev = node.prev;
+            final Node<T> next = node.next;
+
             if (node == null) {
                 return;
             }
-            if (node.prev != null) {
-                node.prev.next = node.next;
-                if (node.next == null) {
-                    tail = node.prev;
+            if (prev != null) {
+                prev.next = next;
+                if (next == null) {
+                    tail = prev;
                 } else {
-                    node.next.prev = node.prev;
+                    next.prev = prev;
                 }
             } else {
-                head = node.next;
+                head = next;
                 if (head == null) {
                     tail = null;
                 } else {
@@ -90,6 +93,19 @@ public class InMemoryHistoryManager implements HistoryManager {
             }
         }
 
+    }
+
+    private static class Node<T> {
+
+        private T task;
+        private Node<T> next;
+        private Node<T> prev;
+
+        public Node(Node<T> prev, T task, Node<T> next) {
+            this.task = task;
+            this.next = next;
+            this.prev = prev;
+        }
     }
 
 }
