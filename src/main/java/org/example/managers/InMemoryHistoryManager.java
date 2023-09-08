@@ -22,7 +22,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (!historyMap.containsKey(id)) {
             return;
         }
-        Node remove = historyMap.get(id);
+        Node<Task> remove = historyMap.get(id);
         historyTasks.removeNode(remove);
         historyMap.remove(id);
     }
@@ -33,7 +33,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             return;
         }
         if (historyMap.containsKey(task.getId())) {
-            Node remove = historyMap.get(task.getId());
+            Node<Task> remove = historyMap.get(task.getId());
             historyTasks.removeNode(remove);
         }
         historyTasks.linkLast(task);
@@ -70,12 +70,14 @@ public class InMemoryHistoryManager implements HistoryManager {
 
         public void removeNode(Node<T> node) {
 
-            final Node<T> prev = node.prev;
-            final Node<T> next = node.next;
-
             if (node == null) {
                 return;
             }
+
+            final Node<T> prev = node.prev;
+            final Node<T> next = node.next;
+
+
             if (prev != null) {
                 prev.next = next;
                 if (next == null) {
