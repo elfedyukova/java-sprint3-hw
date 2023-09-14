@@ -9,12 +9,14 @@ public class Epic extends Task {
 
     public Epic(String name, String description) {
         super(name, description);
+        this.type = TaskType.EPIC;
         subtasks = new ArrayList<>();
     }
 
     public Epic(String name, String description, int id) {
         super(name, description);
         this.id = id;
+        this.type = TaskType.EPIC;
         subtasks = new ArrayList<>();
     }
 
@@ -23,7 +25,6 @@ public class Epic extends Task {
     }
 
     public void removeSubtasks(int id) {
-        //subtasks.remove(Integer.valueOf(id));
         subtasks.removeIf(t -> t.getId() == id);
     }
 

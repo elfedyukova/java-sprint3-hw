@@ -57,7 +57,7 @@ public class Main {
                     + ". Epic ID: " + subtasks.get(i).getEpicId());
         }
         int subtaskId = 10;
-        taskManager.updateSubtask(new Subtask("new name", "new description", TaskStatus.IN_PROGRESS,subtaskId, 6));
+        taskManager.updateSubtask(new Subtask("new name", "new description", TaskStatus.IN_PROGRESS, subtaskId, 6));
         System.out.println(taskManager.getSubtaskById(subtaskId));
         taskManager.deleteSubtaskById(subtaskId);
         System.out.println("Список сабтасков после удаления одного по ID: " + +taskManager.getSubtasks().size());

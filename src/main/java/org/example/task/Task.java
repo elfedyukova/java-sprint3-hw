@@ -6,12 +6,13 @@ public class Task {
     protected String description;
     protected TaskStatus status;
     protected int id;
+    protected TaskType type;
 
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
         this.status = TaskStatus.NEW;
-
+        this.type = TaskType.TASK;
     }
 
     public Task(String name, String description, TaskStatus status, int id) {
@@ -19,6 +20,11 @@ public class Task {
         this.description = description;
         this.status = status;
         this.id = id;
+        this.type = TaskType.TASK;
+    }
+
+    public TaskType getType() {
+        return type;
     }
 
     public String getName() {
