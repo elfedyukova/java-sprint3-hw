@@ -1,13 +1,13 @@
-id, type, status, description, epic
-1,TASK,task,NEW,Создание задачи,
-2,TASK,task,NEW,Создание задачи,
-3,TASK,task,NEW,Создание задачи,
-4,EPIC,epic,NEW,Создание эпика,
-5,EPIC,epic,NEW,Создание эпика,
-6,EPIC,epic,NEW,Создание эпика,
-7,SUBTASK,subtask,NEW,Это subtask,4
-8,SUBTASK,subtask,NEW,Это subtask,4
-9,SUBTASK,subtask,NEW,Это subtask,4
-10,SUBTASK,subtask,NEW,Второй subtask,6
+id,type,name,status,description,epic
+1,TASK,task0,NEW,Создание задачи,
+2,TASK,task1,NEW,Создание задачи,
+3,TASK,task2,NEW,Создание задачи,
+4,EPIC,epic0,NEW,Создание эпика,
+5,EPIC,epic1,NEW,Создание эпика,
+6,EPIC,epic2,NEW,Создание эпика,
+7,SUBTASK,subtask0,NEW,Это subtask,4
+8,SUBTASK,subtask1,NEW,Это subtask,4
+9,SUBTASK,subtask2,NEW,Это subtask,4
+10,SUBTASK,subtask 2 ,NEW,Второй subtask,6
 
 2,5,8

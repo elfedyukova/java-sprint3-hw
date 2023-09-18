@@ -1,16 +1,14 @@
 package org.example.managers.file;
 
 import org.example.managers.HistoryManager;
-import org.example.task.Subtask;
-import org.example.task.Task;
-import org.example.task.TaskType;
+import org.example.task.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CSVFormatHandler {
 
-    private static final String DELIMITER = ",";
+    private final String DELIMITER = ",";
 
     String toString(Task task) {
         String result = task.getId() + DELIMITER +
@@ -26,11 +24,27 @@ public class CSVFormatHandler {
     }
 
     Task fromString(String value) {
-        String id = "";
-        String taskType = "";
-        TaskType type = TaskType.valueOf(taskType);
-        Task task = new Task("task", "Создание задачи");
-        return task;
+
+        String[] fields = value.split(DELIMITER);
+
+        int id = Integer.parseInt(fields[0]);
+        TaskType type = TaskType.valueOf(fields[1]);
+        String name = fields[2];
+        TaskStatus taskStatus = TaskStatus.valueOf(fields[3]);
+        String description = fields[4];
+
+
+        switch (type) {
+            case TASK:
+                return new Task(name, description, taskStatus, id);
+            case SUBTASK:
+                int epicId = Integer.parseInt(fields[5]);
+                return new Subtask(name, description, taskStatus, id, epicId);
+            case EPIC:
+                return new Epic(name, description, id);
+        }
+
+        return null;
     }
 
     String historyToString(HistoryManager manager) {
@@ -42,16 +56,16 @@ public class CSVFormatHandler {
         return String.join(DELIMITER, result);
     }
 
-    List<Task> historyFromString(String value) {
-        List<Task> task = new ArrayList<>();
-        String[] ids = value.split(",");
+    List<Integer> historyFromString(String value) {
+        List<Integer> list = new ArrayList<>();
+        String[] ids = value.split(DELIMITER);
         for (String i : ids) {
-            //  task.add();
+            list.add(Integer.parseInt(i));
         }
-        return task;
+        return list;
     }
 
     String getHeader() {
-        return "id, type, status, description, epic";
+        return "id,type,name,status,description,epic";
     }
 }
